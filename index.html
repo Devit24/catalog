@@ -361,6 +361,8 @@
         const nameIdx = headers.findIndex(h => h.includes('name') || h.includes('item')) !== -1 ? headers.findIndex(h => h.includes('name') || h.includes('item')) : 3;
         const imageIdx = 4;
         const descIdx = headers.findIndex(h => h.includes('desc') || h.includes('detail') || h.includes('description')) !== -1 ? headers.findIndex(h => h.includes('desc') || h.includes('detail') || h.includes('description')) : 5;
+        const qtyIdx = headers.findIndex(h => h.includes('qty') || h.includes('quantity') || h.includes('stock')) !== -1 ? headers.findIndex(h => h.includes('qty') || h.includes('quantity') || h.includes('stock')) : 6;
+        const promoIdx = headers.findIndex(h => h.includes('promo') || h.includes('promotion') || h.includes('offer')) !== -1 ? headers.findIndex(h => h.includes('promo') || h.includes('promotion') || h.includes('offer')) : 7;
         const priceIdx = 9;
 
         const itemsParsed = [];
@@ -386,6 +388,8 @@
             code: line[codeIdx] ? line[codeIdx].trim() : `ITEM-${r}`,
             name: line[nameIdx] ? line[nameIdx].trim() : `Product ${r}`,
             description: line[descIdx] ? line[descIdx].trim() : "No description provided.",
+            qty: (line.length > qtyIdx && line[qtyIdx]) ? line[qtyIdx].trim() : "N/A",
+            promotion: (line.length > promoIdx && line[promoIdx]) ? line[promoIdx].trim() : null,
             price: cleanPrice,
             imageUrl: rawImgUrl
           };
@@ -609,6 +613,20 @@
                     isDarkMode ? 'border-slate-800' : 'border-[#e8e2d5]'
                   }`}>
                     ${selectedItem.price ? selectedItem.price.toLocaleString(undefined, {minimumFractionDigits: 2}) : "0.00"}
+                  </div>
+
+                  {/* Quantity and Promotion Section */}
+                  <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs font-medium">
+                    <span className={`px-3 py-1 rounded-lg border ${
+                      isDarkMode ? 'bg-slate-800 border-slate-700 text-slate-300' : 'bg-[#f5f1e8] border-[#e8e2d5] text-[#6e5d44]'
+                    }`}>
+                      Qty: <strong className="font-bold">{selectedItem.qty}</strong>
+                    </span>
+                    {selectedItem.promotion && (
+                      <span className="px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 font-semibold">
+                        Promo: {selectedItem.promotion}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
