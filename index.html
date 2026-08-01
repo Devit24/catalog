@@ -361,7 +361,10 @@
         const nameIdx = headers.findIndex(h => h.includes('name') || h.includes('item')) !== -1 ? headers.findIndex(h => h.includes('name') || h.includes('item')) : 3;
         const imageIdx = 4;
         const descIdx = headers.findIndex(h => h.includes('desc') || h.includes('detail') || h.includes('description')) !== -1 ? headers.findIndex(h => h.includes('desc') || h.includes('detail') || h.includes('description')) : 5;
-        const qtyIdx = headers.findIndex(h => h.includes('qty') || h.includes('quantity') || h.includes('stock')) !== -1 ? headers.findIndex(h => h.includes('qty') || h.includes('quantity') || h.includes('stock')) : 6;
+        
+        // Changed qtyIdx to Column M (0-indexed position 12)
+        const qtyIdx = 12; 
+
         const promoIdx = headers.findIndex(h => h.includes('promo') || h.includes('promotion') || h.includes('offer')) !== -1 ? headers.findIndex(h => h.includes('promo') || h.includes('promotion') || h.includes('offer')) : 7;
         const priceIdx = 9;
 
